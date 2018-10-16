@@ -4,7 +4,9 @@ frr (6.0-0+pve) RELEASED; urgency=medium
   * Proxmox initial release.
 
   [ Rhonda D'Vine ]
-  * debian/control: Format Build-Depends to make diffs easier to read.
+  * debian/control:
+    + Format Build-Depends to make diffs easier to read.
+    + Remove libjson-c2/c3 Build-Depends (pulled in by libjson-c-dev)
 
  -- Alexandre Derumier <aderumier@odiso.com>  Mon, 15 Oct 2018 04:46:06 +0200
 
