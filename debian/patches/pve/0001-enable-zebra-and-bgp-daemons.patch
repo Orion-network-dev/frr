@@ -1,0 +1,27 @@
+From b39c6b5bc6835fac2ad91f7805f77089a38685a6 Mon Sep 17 00:00:00 2001
+From: Alexandre Derumier <aderumier@odiso.com>
+Date: Fri, 15 Jun 2018 03:18:54 +0200
+Subject: [PATCH] enable zebra and bgp daemons
+
+---
+ tools/etc/frr/daemons | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/etc/frr/daemons b/tools/etc/frr/daemons
+index 9a96c0490..c93e8dbd4 100644
+--- a/tools/etc/frr/daemons
++++ b/tools/etc/frr/daemons
+@@ -21,8 +21,8 @@
+ # The watchfrr daemon is always started. Per default in monitoring-only but
+ # that can be changed via /etc/frr/daemons.conf.
+ #
+-zebra=no
+-bgpd=no
++zebra=yes
++bgpd=yes
+ ospfd=no
+ ospf6d=no
+ ripd=no
+-- 
+2.11.0
+
