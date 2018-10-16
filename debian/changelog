@@ -1,4 +1,10 @@
-frr (@VERSION@) RELEASED; urgency=medium
+frr (6.0-0+pve) RELEASED; urgency=medium
+
+  * Proxmox initial release.
+
+ -- Alexandre Derumier <aderumier@odiso.com>  Mon, 15 Oct 2018 04:46:06 +0200
+
+frr (6.0-0) RELEASED; urgency=medium
 
   * Staticd: New daemon responsible for management of static routes
   * ISISd: Implement dst-src routing as per draft-ietf-isis-ipv6-dst-src-routing
