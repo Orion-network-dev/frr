@@ -15,7 +15,6 @@ Build-Depends:
  install-info,
  libc-ares-dev,
  libcap-dev,
- libjson0,
  libjson0-dev | libjson-c-dev,
  libpam0g-dev | libpam-dev,
  libpcre3-dev,
