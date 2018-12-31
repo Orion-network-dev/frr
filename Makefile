@@ -1,5 +1,5 @@
 PACKAGE=frr
-VER=6.0
+VER=6.0.1
 PKGREL=0+pve
 
 SRCDIR=frr
@@ -16,7 +16,7 @@ all: ${DEB}
 
 .PHONY: submodule
 submodule:
-	test -f "${SRCDIR}/debianpkg/changelog" || git submodule update --init
+	test -f "${SRCDIR}/debian/changelog" || git submodule update --init
 
 .PHONY: deb
 deb: ${DEB}
@@ -24,8 +24,9 @@ ${DEB}: | submodule
 	rm -f *.deb
 	rm -rf $(BUILDDIR)
 	cp -rpa ${SRCDIR} ${BUILDDIR}
-	cp -a debian ${BUILDDIR}
-	cd ${BUILDDIR}; dpkg-buildpackage -rfakeroot -b -uc -us
+	rm $(BUILDDIR)/debian/changelog
+	cp -R debian/* $(BUILDDIR)/debian/
+	cd ${BUILDDIR};  DEB_BUILD_PROFILES=pkg.frr.nortrlib dpkg-buildpackage -rfakeroot -b -uc -us
 
 .PHONY: upload
 upload: ${DEB}
