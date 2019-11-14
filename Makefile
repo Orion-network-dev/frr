@@ -1,5 +1,5 @@
 PACKAGE=frr
-VER=6.0.1
+VER=7.2
 PKGREL=0+pve
 
 SRCDIR=frr
