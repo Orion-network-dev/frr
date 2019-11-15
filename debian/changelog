@@ -1,8 +1,8 @@
-frr (7.2-0+pve) RELEASED; urgency=medium
+frr (7.2-0+pve) pve; urgency=medium
 
-  * Bump to 7.2
+  * update to upstream 7.2 release
 
- -- Alexandre Derumier <aderumier@odiso.com>  Fri, 15 Nov 2010 02:01:00 +0200
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 15 Nov 2019 07:37:15 +0100
 
 frr (6.0.1-0+pve) RELEASED; urgency=medium
 
