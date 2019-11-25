@@ -1,6 +1,6 @@
 PACKAGE=frr
 VER=7.2
-PKGREL=0+pve
+PKGREL=1+pve
 
 SRCDIR=frr
 BUILDDIR=${SRCDIR}.tmp
