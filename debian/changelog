@@ -1,11 +1,5 @@
 frr (7.2-1+pve) pve; urgency=medium
 
-  * checkout frr sub-module to frr 7.2 release
-
- -- Proxmox Support Team <support@proxmox.com>  Mon, 25 Nov 2019 17:55:15 +0100
-
-frr (7.2-0+pve) pve; urgency=medium
-
   * update to upstream 7.2 release
 
  -- Proxmox Support Team <support@proxmox.com>  Fri, 15 Nov 2019 07:37:15 +0100
