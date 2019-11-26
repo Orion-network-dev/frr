@@ -1,3 +1,10 @@
+frr (7.2-2+pve~really7.1+stable1) pve; urgency=medium
+
+  * downgrade to stable 7.1 release branch, as the 7.2 tag has some regressions
+    with EVPN
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 26 Nov 2019 09:43:06 +0100
+
 frr (7.2-1+pve) pve; urgency=medium
 
   * update to upstream 7.2 release
