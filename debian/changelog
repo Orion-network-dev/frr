@@ -1,3 +1,9 @@
+frr (7.2.1-1+pve1) pve; urgency=medium
+
+  * bump to 7.2.1
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 14 Feb 2020 18:40:05 +0100
+
 frr (7.2-2+pve~really7.1+stable1) pve; urgency=medium
 
   * downgrade to stable 7.1 release branch, as the 7.2 tag has some regressions
