@@ -1,7 +1,7 @@
-From f098e90f4d690e771f63f48e0540a470faa91892 Mon Sep 17 00:00:00 2001
+From 249e602260f1c5bacffb7bc5bd0f5e8db635050d Mon Sep 17 00:00:00 2001
 From: Alexandre Derumier <aderumier@odiso.com>
 Date: Wed, 25 Nov 2020 12:41:32 +0100
-Subject: [PATCH] enable bgp && bfd daemons
+Subject: [PATCH 1/2] enable bgp && bfd daemons
 
 Signed-off-by: Alexandre Derumier <aderumier@odiso.com>
 ---
@@ -9,12 +9,12 @@ Signed-off-by: Alexandre Derumier <aderumier@odiso.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/tools/etc/frr/daemons b/tools/etc/frr/daemons
-index 8bec3c5bb..7cdfa840c 100644
+index f6d512be7..4cddea326 100644
 --- a/tools/etc/frr/daemons
 +++ b/tools/etc/frr/daemons
 @@ -14,7 +14,7 @@
  #
- # The watchfrr and zebra daemons are always started.
+ # The watchfrr, zebra and staticd daemons are always started.
  #
 -bgpd=no
 +bgpd=yes
@@ -31,5 +31,5 @@ index 8bec3c5bb..7cdfa840c 100644
  vrrpd=no
  
 -- 
-2.20.1
+2.30.2
 
