@@ -1,8 +1,8 @@
-frr (7.5.1-1+pve) pve; urgency=medium
+frr (7.5.1-1+pve) bullseye; urgency=medium
 
-  * update submodule to latest 7.5.1 tag 
+  * update submodule to latest 7.5.1 stable release
 
- -- Proxmox Support Team <support@proxmox.com>  Wed, 13 Jul 2021 12:00:45 +0100
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 13 Jul 2021 19:32:53 +0200
 
 frr (7.4-1+pve) pve; urgency=medium
 
