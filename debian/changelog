@@ -1,3 +1,9 @@
+frr (7.5.1-1+pve) pve; urgency=medium
+
+  * update submodule to latest 7.5.1 tag 
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 13 Jul 2021 12:00:45 +0100
+
 frr (7.4-1+pve) pve; urgency=medium
 
   * update submodule to latest 7.4 stable branch
