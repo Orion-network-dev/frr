@@ -1,3 +1,10 @@
+frr (7.5.1-99+pve~really7.4) bullseye; urgency=medium
+
+  * Revert to 7.4 for now due to regressions in combination with evpn from the
+    new multi-homing feature in 7.5
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 24 Aug 2021 10:29:49 +0200
+
 frr (7.5.1-1+pve) bullseye; urgency=medium
 
   * update submodule to latest 7.5.1 stable release
