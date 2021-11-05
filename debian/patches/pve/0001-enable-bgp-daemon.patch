@@ -9,12 +9,12 @@ Signed-off-by: Alexandre Derumier <aderumier@odiso.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/tools/etc/frr/daemons b/tools/etc/frr/daemons
-index 8bec3c5bb..7cdfa840c 100644
+index b1526888e..27bc120a7 100644
 --- a/tools/etc/frr/daemons
 +++ b/tools/etc/frr/daemons
 @@ -14,7 +14,7 @@
  #
- # The watchfrr and zebra daemons are always started.
+ # The watchfrr, zebra and staticd daemons are always started.
  #
 -bgpd=no
 +bgpd=yes
@@ -29,7 +29,7 @@ index 8bec3c5bb..7cdfa840c 100644
 +bfdd=yes
  fabricd=no
  vrrpd=no
- 
+ pathd=no
 -- 
-2.20.1
+2.30.2
 
