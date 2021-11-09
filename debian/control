@@ -14,6 +14,7 @@ Build-Depends: bison,
                libcap-dev,
                libelf-dev,
                libjson-c-dev | libjson0-dev,
+               liblua5.3-dev <pkg.frr.lua>,
                libpam0g-dev | libpam-dev,
                libpcre2-dev,
                libpython3-dev,
@@ -30,7 +31,6 @@ Build-Depends: bison,
                python3-pytest <!nocheck>,
                python3-sphinx,
                texinfo (>= 4.7),
-               liblua5.3-dev <pkg.frr.lua>
 Standards-Version: 4.4.1
 Homepage: https://www.frrouting.org/
 Vcs-Browser: https://github.com/FRRouting/frr/tree/debian/master
@@ -38,27 +38,25 @@ Vcs-Git: https://github.com/FRRouting/frr.git -b debian/master
 
 Package: frr
 Architecture: linux-any
-Depends:
- ${misc:Depends},
- ${shlibs:Depends},
- iproute2 | iproute,
- logrotate (>= 3.2-11)
+Depends: iproute2 | iproute,
+         logrotate (>= 3.2-11),
+         ${misc:Depends},
+         ${shlibs:Depends},
 Pre-Depends: adduser
 Recommends: frr-pythontools
 Suggests: frr-doc
-Conflicts:
- zebra,
- zebra-pj,
- pimd,
- quagga,
- quagga-bgpd,
- quagga-core,
- quagga-isisd,
- quagga-ospf6d,
- quagga-ospfd,
- quagga-pimd,
- quagga-ripd,
- quagga-ripngd
+Conflicts: pimd,
+           quagga,
+           quagga-bgpd,
+           quagga-core,
+           quagga-isisd,
+           quagga-ospf6d,
+           quagga-ospfd,
+           quagga-pimd,
+           quagga-ripd,
+           quagga-ripngd,
+           zebra,
+           zebra-pj,
 Replaces: zebra, zebra-pj
 Description: FRRouting suite of internet protocols (BGP, OSPF, IS-IS, ...)
  FRRouting implements the routing protocols commonly used in the
@@ -77,10 +75,7 @@ Description: FRRouting suite of internet protocols (BGP, OSPF, IS-IS, ...)
 
 Package: frr-snmp
 Architecture: linux-any
-Depends:
- ${misc:Depends},
- ${shlibs:Depends},
- frr (= ${binary:Version})
+Depends: frr (= ${binary:Version}), ${misc:Depends}, ${shlibs:Depends}
 Recommends: snmpd
 Description: FRRouting suite - SNMP support
  Adds SNMP support to FRR's daemons by attaching to net-snmp's snmpd
@@ -89,10 +84,7 @@ Description: FRRouting suite - SNMP support
 
 Package: frr-rpki-rtrlib
 Architecture: linux-any
-Depends:
- ${misc:Depends},
- ${shlibs:Depends},
- frr (= ${binary:Version})
+Depends: frr (= ${binary:Version}), ${misc:Depends}, ${shlibs:Depends}
 Description: FRRouting suite - BGP RPKI support (rtrlib)
  Adds RPKI support to FRR's bgpd, allowing validation of BGP routes
  against cryptographic information stored in WHOIS databases.  This is
@@ -105,10 +97,7 @@ Package: frr-doc
 Section: doc
 Architecture: all
 Multi-Arch: foreign
-Depends:
- ${misc:Depends},
- libjs-jquery,
- libjs-underscore
+Depends: libjs-jquery, libjs-underscore, ${misc:Depends}
 Suggests: frr
 Conflicts: quagga-doc
 Description: FRRouting suite - user manual
@@ -118,11 +107,10 @@ Description: FRRouting suite - user manual
 
 Package: frr-pythontools
 Architecture: all
-Depends:
- ${misc:Depends},
- frr (<< ${source:Upstream-Version}.0-~),
- frr (>= ${source:Version}~),
- python3:any
+Depends: frr (<< ${source:Upstream-Version}.0-~),
+         frr (>= ${source:Version}~),
+         python3:any,
+         ${misc:Depends},
 Description: FRRouting suite - Python tools
  The FRRouting suite uses a small Python tool to provide configuration
  reload functionality, particularly useful when the interactive configuration
