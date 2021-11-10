@@ -1,44 +1,56 @@
+include /usr/share/dpkg/default.mk
+
 PACKAGE=frr
-VER=8.0.1
-PKGREL=1+pve
 
 SRCDIR=frr
-BUILDDIR=${SRCDIR}.tmp
-
-ARCH:=$(shell dpkg-architecture -qDEB_BUILD_ARCH)
+BUILDDIR=build-${PACKAGE}-${DEB_VERSION_UPSTREAM}
 
 GITVERSION:=$(shell git rev-parse HEAD)
 
-DEB=${PACKAGE}_${VER}-${PKGREL}_${ARCH}.deb
+MAIN_DEB=${PACKAGE}_${DEB_VERSION}_${DEB_BUILD_ARCH}.deb
+OTHER_DEBS=\
+  frr-doc_${DEB_VERSION}_all.deb \
+  frr-pythontools_${DEB_VERSION}_all.deb \
+  frr-snmp_${DEB_VERSION}_${DEB_BUILD_ARCH}.deb \
 
-all: ${DEB}
-	@echo ${DEB}
+DBG_DEBS=\
+  frr-dbgsym_${DEB_VERSION}_${DEB_BUILD_ARCH}.deb \
+  frr-snmp-dbgsym_${DEB_VERSION}_${DEB_BUILD_ARCH}.deb \
+
+DEBS=${MAIN_DEB} ${OTHER_DEBS} ${DBG_DEBS}
+
+all: ${DEBS}
+	@echo ${DEBS}
 
 .PHONY: submodule
 submodule:
 	test -f "${SRCDIR}/debian/changelog" || git submodule update --init
 
+${BUILDDIR}: submodule debian/changelog
+	rm -rf ${BUILDDIR} ${BUILDDIR}.tmp
+	cp -a ${SRCDIR} ${BUILDDIR}.tmp
+	rm ${BUILDDIR}.tmp/debian/changelog
+	cp -a debian/* ${BUILDDIR}.tmp/debian/
+	mv ${BUILDDIR}.tmp ${BUILDDIR}
+
 .PHONY: deb
-deb: ${DEB}
-${DEB}: | submodule
-	rm -f *.deb
-	rm -rf $(BUILDDIR)
-	cp -rpa ${SRCDIR} ${BUILDDIR}
-	rm $(BUILDDIR)/debian/changelog
-	cp -R debian/* $(BUILDDIR)/debian/
-	cd ${BUILDDIR};  DEB_BUILD_PROFILES=pkg.frr.nortrlib dpkg-buildpackage -rfakeroot -b -uc -us
+deb: ${DEBS}
+${OTHER_DEBS} ${DBG_DEBS}: ${MAIN_DEB}
+${MAIN_DEB}: ${BUILDDIR}
+	cd ${BUILDDIR}; dpkg-buildpackage -b -uc -us --build-profiles="pkg.frr.nortrlib"
+	lintian ${DEBS}
 
 .PHONY: upload
-upload: ${DEB}
-	tar cf - ${DEB}|ssh -X repoman@repo.proxmox.com -- upload --product pve --dist bullseye
+upload: ${DEBS}
+	tar cf - ${DEBS}|ssh -X repoman@repo.proxmox.com -- upload --product pve --dist bullseye
 
 .PHONY: distclean
 distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ debian/*~ *.deb ${BUILDDIR} *.changes *.dsc *.buildinfo
+	rm -rf *~ debian/*~ *.deb build-${PACKAGE}* *.changes *.dsc *.buildinfo
 
 .PHONY: dinstall
 dinstall: deb
-	dpkg -i ${DEB}
+	dpkg -i ${DEBS}
