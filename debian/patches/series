@@ -1,6 +1,5 @@
 pve/0001-enable-bgp-daemon.patch
 pve/0002-bgpd-add-an-option-for-RT-auto-derivation-to-force-A.patch
-upstream/7573cb86a259d3c9ef6eae9dd5d529f8080922cd.patch
 frr/0001-zebra-buffering.patch
 frr/0002-zebra-buffering.patch
 frr/0003-zebra-buffering.patch
