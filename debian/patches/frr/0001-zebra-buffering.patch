@@ -1,0 +1,92 @@
+From 3670f5047cb00865c15b2f3ebdfcfe634443db61 Mon Sep 17 00:00:00 2001
+From: Donald Sharp <sharpd@nvidia.com>
+Date: Tue, 8 Feb 2022 09:47:24 -0500
+Subject: [PATCH] zebra: Store the sequence number to use as part of the
+ dp_info
+
+Store and use the sequence number instead of using what is in
+the `struct nlsock`.  Future commits are going away from storing
+the `struct nlsock` and the copy of the nlsock was guaranteeing
+unique sequence numbers per message.  So let's store the
+sequence number to use instead.
+
+Signed-off-by: Donald Sharp <sharpd@nvidia.com>
+---
+ zebra/kernel_netlink.c | 14 +++++++-------
+ zebra/zebra_dplane.h   |  3 +++
+ 2 files changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/zebra/kernel_netlink.c b/zebra/kernel_netlink.c
+index e3b2f9cb665..59911945481 100644
+--- a/zebra/kernel_netlink.c
++++ b/zebra/kernel_netlink.c
+@@ -1038,7 +1038,7 @@ netlink_talk_info(int (*filter)(struct nlmsghdr *, ns_id_t, int startup),
+ 	const struct nlsock *nl;
+ 
+ 	nl = &(dp_info->nls);
+-	n->nlmsg_seq = nl->seq;
++	n->nlmsg_seq = dp_info->seq;
+ 	n->nlmsg_pid = nl->snl.nl_pid;
+ 
+ 	if (IS_ZEBRA_DEBUG_KERNEL)
+@@ -1172,8 +1172,8 @@ static int nl_batch_read_resp(struct nl_batch *bth)
+ 			 * 'update' context objects take two consecutive
+ 			 * sequence numbers.
+ 			 */
+-			if (dplane_ctx_is_update(ctx)
+-			    && dplane_ctx_get_ns(ctx)->nls.seq + 1 == seq) {
++			if (dplane_ctx_is_update(ctx) &&
++			    dplane_ctx_get_ns(ctx)->seq + 1 == seq) {
+ 				/*
+ 				 * This is the situation where we get a response
+ 				 * to a message that should be ignored.
+@@ -1186,14 +1186,14 @@ static int nl_batch_read_resp(struct nl_batch *bth)
+ 			dplane_ctx_enqueue_tail(bth->ctx_out_q, ctx);
+ 
+ 			/* We have found corresponding context object. */
+-			if (dplane_ctx_get_ns(ctx)->nls.seq == seq)
++			if (dplane_ctx_get_ns(ctx)->seq == seq)
+ 				break;
+ 
+-			if (dplane_ctx_get_ns(ctx)->nls.seq > seq)
++			if (dplane_ctx_get_ns(ctx)->seq > seq)
+ 				zlog_warn(
+ 					"%s:WARNING Recieved %u is less than any context on the queue ctx->seq %u",
+ 					__func__, seq,
+-					dplane_ctx_get_ns(ctx)->nls.seq);
++					dplane_ctx_get_ns(ctx)->seq);
+ 		}
+ 
+ 		if (ignore_msg) {
+@@ -1360,7 +1360,7 @@ enum netlink_msg_status netlink_batch_add_msg(
+ 			return FRR_NETLINK_ERROR;
+ 	}
+ 
+-	seq = dplane_ctx_get_ns(ctx)->nls.seq;
++	seq = dplane_ctx_get_ns(ctx)->seq;
+ 	if (ignore_res)
+ 		seq++;
+ 
+diff --git a/zebra/zebra_dplane.h b/zebra/zebra_dplane.h
+index 1d55181388e..69ea9c7fd95 100644
+--- a/zebra/zebra_dplane.h
++++ b/zebra/zebra_dplane.h
+@@ -42,6 +42,7 @@ struct zebra_dplane_info {
+ 
+ #if defined(HAVE_NETLINK)
+ 	struct nlsock nls;
++	int seq;
+ 	bool is_cmd;
+ #endif
+ };
+@@ -57,8 +58,10 @@ zebra_dplane_info_from_zns(struct zebra_dplane_info *zns_info,
+ 	zns_info->is_cmd = is_cmd;
+ 	if (is_cmd) {
+ 		zns_info->nls = zns->netlink_cmd;
++		zns_info->seq = zns->netlink_cmd.seq;
+ 	} else {
+ 		zns_info->nls = zns->netlink;
++		zns_info->seq = zns->netlink.seq;
+ 	}
+ #endif /* NETLINK */
+ }
