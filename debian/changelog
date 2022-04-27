@@ -2,7 +2,7 @@ frr (8.2.2-1+pve1) bullseye; urgency=medium
 
   * update upstream sources to 8.2.2
 
- -- Proxmox Support Team <support@proxmox.com>  Sun, 24 Apr 2022 08:10:30 +0100
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 27 Apr 2022 20:12:21 +0200
 
 frr (8.0.1-1+pve1) bullseye; urgency=medium
 
