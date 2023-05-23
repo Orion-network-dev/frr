@@ -1,0 +1,46 @@
+From bd65a991901f43e14b557fd5057130b4bee81df2 Mon Sep 17 00:00:00 2001
+From: Chirag Shah <chirag@nvidia.com>
+Date: Sat, 22 Oct 2022 16:00:14 -0700
+Subject: [PATCH] zebra:fix evpn dup detected local mac del event
+
+The current local mac delete event send to flag with force
+always which breaks the duplicate detected MACs where
+it requires to be resynced from bgpd to earlier state.
+
+Ticket:#3233019
+Issue:3233019
+
+Signed-off-by: Chirag Shah <chirag@nvidia.com>
+(cherry picked from commit 89844a967858d34de99bad8dcb410b4ab4e1dece)
+---
+ zebra/zebra_evpn_mac.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/zebra/zebra_evpn_mac.c b/zebra/zebra_evpn_mac.c
+index cebdb978add..25bdc9a877c 100644
+--- a/zebra/zebra_evpn_mac.c
++++ b/zebra/zebra_evpn_mac.c
+@@ -1044,12 +1044,11 @@ int zebra_evpn_macip_send_msg_to_client(vni_t vni,
+ 		char flag_buf[MACIP_BUF_SIZE];
+ 
+ 		zlog_debug(
+-			"Send MACIP %s f %s MAC %pEA IP %pIA seq %u L2-VNI %u ESI %s to %s",
++			"Send MACIP %s f %s state %u MAC %pEA IP %pIA seq %u L2-VNI %u ESI %s to %s",
+ 			(cmd == ZEBRA_MACIP_ADD) ? "Add" : "Del",
+ 			zclient_evpn_dump_macip_flags(flags, flag_buf,
+ 						      sizeof(flag_buf)),
+-			macaddr, ip, seq, vni,
+-			es ? es->esi_str : "-",
++			state, macaddr, ip, seq, vni, es ? es->esi_str : "-",
+ 			zebra_route_string(client->proto));
+ 	}
+ 
+@@ -2451,7 +2450,7 @@ int zebra_evpn_del_local_mac(struct zebra_evpn *zevpn, struct zebra_mac *mac,
+ 
+ 	/* Remove MAC from BGP. */
+ 	zebra_evpn_mac_send_del_to_client(zevpn->vni, &mac->macaddr, mac->flags,
+-					  false /* force */);
++					  clear_static /* force */);
+ 
+ 	zebra_evpn_es_mac_deref_entry(mac);
+ 

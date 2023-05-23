@@ -1,2 +1,4 @@
+frr/0001-zebra-fix-evpn-dup-detected.patch
+frr/0002-zebra-evpn-handle-del-event.patch
 pve/0001-enable-bgp-daemon.patch
 pve/0002-bgpd-add-an-option-for-RT-auto-derivation-to-force-A.patch
