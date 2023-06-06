@@ -5,8 +5,8 @@ Maintainer: David Lamparter <equinox-debian@diac24.net>
 Uploaders: FRRouting-dev <dev@lists.frrouting.org>
 Build-Depends: bison,
                chrpath,
-               debhelper (>= 10~) | dh-systemd,
                debhelper (>= 9.20150101~),
+               debhelper-compat (= 12),
                flex,
                gawk,
                install-info,

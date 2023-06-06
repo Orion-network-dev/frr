@@ -27,10 +27,12 @@ all: $(DEBS)
 submodule:
 	test -f "$(SRCDIR)/debian/changelog" || git submodule update --init
 
+# FIXME: fully merge our and upstream (which is also the upstream for debian's "downstream") packaging
+# so that the top-level debian directory is the canonical source.
 $(BUILDDIR): submodule debian/changelog
 	rm -rf $@ $@.tmp
 	cp -a $(SRCDIR) $@.tmp
-	rm $@.tmp/debian/changelog
+	rm $@.tmp/debian/changelog $@.tmp/debian/compat
 	cp -a debian/* $@.tmp/debian/
 	mv $@.tmp $@
 
