@@ -7,15 +7,15 @@ BUILDDIR=build-$(PACKAGE)-$(DEB_VERSION_UPSTREAM)
 
 GITVERSION:=$(shell git rev-parse HEAD)
 
-MAIN_DEB=$(PACKAGE)_$(DEB_VERSION)_$(DEB_BUILD_ARCH).deb
+MAIN_DEB=$(PACKAGE)_$(DEB_VERSION)_$(DEB_HOST_ARCH).deb
 OTHER_DEBS=\
   frr-doc_$(DEB_VERSION)_all.deb \
   frr-pythontools_$(DEB_VERSION)_all.deb \
-  frr-snmp_$(DEB_VERSION)_$(DEB_BUILD_ARCH).deb \
+  frr-snmp_$(DEB_VERSION)_$(DEB_HOST_ARCH).deb \
 
 DBG_DEBS=\
-  frr-dbgsym_$(DEB_VERSION)_$(DEB_BUILD_ARCH).deb \
-  frr-snmp-dbgsym_$(DEB_VERSION)_$(DEB_BUILD_ARCH).deb \
+  frr-dbgsym_$(DEB_VERSION)_$(DEB_HOST_ARCH).deb \
+  frr-snmp-dbgsym_$(DEB_VERSION)_$(DEB_HOST_ARCH).deb \
 
 DEBS=$(MAIN_DEB) $(OTHER_DEBS) $(DBG_DEBS)
 
