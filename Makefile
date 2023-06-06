@@ -33,6 +33,7 @@ $(BUILDDIR): submodule debian/changelog
 	rm -rf $@ $@.tmp
 	cp -a $(SRCDIR) $@.tmp
 	rm $@.tmp/debian/changelog $@.tmp/debian/compat
+	sed -i '/frrinit\.sh/d' $@.tmp/debian/rules
 	cp -a debian/* $@.tmp/debian/
 	mv $@.tmp $@
 
