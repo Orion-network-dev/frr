@@ -3,9 +3,10 @@ include /usr/share/dpkg/default.mk
 PACKAGE=frr
 
 SRCDIR=frr
-BUILDDIR=build-$(PACKAGE)-$(DEB_VERSION_UPSTREAM)
+BUILDDIR=$(PACKAGE)-$(DEB_VERSION_UPSTREAM)
 
-GITVERSION:=$(shell git rev-parse HEAD)
+ORIG_SRC_TAR=$(PACKAGE)_$(DEB_VERSION_UPSTREAM).orig.tar.gz
+DSC=$(PACKAGE)_$(DEB_VERSION).dsc
 
 MAIN_DEB=$(PACKAGE)_$(DEB_VERSION)_$(DEB_HOST_ARCH).deb
 OTHER_DEBS=\
@@ -27,11 +28,14 @@ submodule:
 	test -f "$(SRCDIR)/debian/changelog" || git submodule update --init
 
 $(BUILDDIR): submodule debian/changelog
-	rm -rf $(BUILDDIR) $(BUILDDIR).tmp
-	cp -a $(SRCDIR) $(BUILDDIR).tmp
-	rm $(BUILDDIR).tmp/debian/changelog
-	cp -a debian/* $(BUILDDIR).tmp/debian/
-	mv $(BUILDDIR).tmp $(BUILDDIR)
+	rm -rf $@ $@.tmp
+	cp -a $(SRCDIR) $@.tmp
+	rm $@.tmp/debian/changelog
+	cp -a debian/* $@.tmp/debian/
+	mv $@.tmp $@
+
+$(ORIG_SRC_TAR): $(BUILDDIR)
+	tar czf $(ORIG_SRC_TAR) --exclude="$(BUILDDIR)/debian" $(BUILDDIR)
 
 .PHONY: deb
 deb: $(DEBS)
@@ -39,6 +43,18 @@ $(OTHER_DEBS) $(DBG_DEBS): $(MAIN_DEB)
 $(MAIN_DEB): $(BUILDDIR)
 	cd $(BUILDDIR); dpkg-buildpackage -b -uc -us --build-profiles="pkg.frr.nortrlib"
 	lintian $(DEBS)
+
+.PHONY: dsc
+dsc:
+	rm -rf $(BUILDDIR) $(ORIG_SRC_TAR) $(DSC)
+	$(MAKE) $(DSC)
+	lintian $(DSC)
+
+$(DSC): $(BUILDDIR) $(ORIG_SRC_TAR)
+	cd $(BUILDDIR); dpkg-buildpackage -S -uc -us --build-profiles="pkg.frr.nortrlib" -d
+
+sbuild: $(DSC)
+	sbuild --profiles="pkg.frr.nortrlib" $<
 
 .PHONY: upload
 upload: $(DEBS)
@@ -49,7 +65,8 @@ distclean: clean
 
 .PHONY: clean
 clean:
-	rm -rf *~ debian/*~ *.deb build-$(PACKAGE)* *.changes *.dsc *.buildinfo
+	rm -rf $(PACKAGE)-[0-9]*/
+	rm -rf $(PACKAGE)*.tar* *.deb *.dsc *.changes *.dsc *.buildinfo *.build
 
 .PHONY: dinstall
 dinstall: deb
