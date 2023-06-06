@@ -60,8 +60,9 @@ sbuild: $(DSC)
 	sbuild --profiles="pkg.frr.nortrlib" $<
 
 .PHONY: upload
+upload: UPLOAD_DIST ?= $(DEB_DISTRIBUTION)
 upload: $(DEBS)
-	tar cf - $(DEBS)|ssh -X repoman@repo.proxmox.com -- upload --product pve --dist bullseye
+	tar cf - $(DEBS)|ssh -X repoman@repo.proxmox.com -- upload --product pve --dist $(UPLOAD_DIST)
 
 .PHONY: distclean
 distclean: clean
