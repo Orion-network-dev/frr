@@ -1,3 +1,13 @@
+frr (8.5.2-1+pve1) bookworm; urgency=medium
+
+  * update upstream sources to current stable/8.5  (commit
+    1622c2ece2f68e034b43fb037503514c2195aba5) fixing among other things:
+    - critical bug evpn bug with Type-3 EVPN route
+    - problematic BGP session resets with corrupted tunnel encapsulation
+      attributes, breaking RFC 7606
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 30 Aug 2023 16:58:08 +0200
+
 frr (8.5.1-1+pve1) bookworm; urgency=medium
 
   * update upstream sources to 8.5.1
