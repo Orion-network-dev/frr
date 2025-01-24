@@ -1,0 +1,35 @@
+From 1a6396bb3819468ae774e33973e18fce1b2b2edd Mon Sep 17 00:00:00 2001
+From: Matthieu Pignolet <m@mpgn.dev>
+Date: Fri, 24 Jan 2025 09:40:25 +0000
+Subject: [PATCH] enable necessary frr daemons for Orion
+
+Signed-off-by: Matthieu Pignolet <m@mpgn.dev>
+---
+ tools/etc/frr/daemons | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/tools/etc/frr/daemons b/tools/etc/frr/daemons
+index 2427bfff7..a5790e9df 100644
+--- a/tools/etc/frr/daemons
++++ b/tools/etc/frr/daemons
+@@ -14,14 +14,14 @@
+ #
+ # The watchfrr, zebra and staticd daemons are always started.
+ #
+-bgpd=no
++bgpd=yes
+ ospfd=no
+ ospf6d=no
+ ripd=no
+ ripngd=no
+ isisd=no
+-pimd=no
+-pim6d=no
++pimd=yes
++pim6d=yes
+ ldpd=no
+ nhrpd=no
+ eigrpd=no
+-- 
+2.47.1
+

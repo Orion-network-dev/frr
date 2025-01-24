@@ -59,11 +59,6 @@ $(DSC): $(BUILDDIR) $(ORIG_SRC_TAR)
 sbuild: $(DSC)
 	sbuild --profiles="pkg.frr.nortrlib" $<
 
-.PHONY: upload
-upload: UPLOAD_DIST ?= $(DEB_DISTRIBUTION)
-upload: $(DEBS)
-	tar cf - $(DEBS)|ssh -X repoman@repo.proxmox.com -- upload --product pve --dist $(UPLOAD_DIST)
-
 .PHONY: distclean
 distclean: clean
 
@@ -71,7 +66,3 @@ distclean: clean
 clean:
 	rm -rf $(PACKAGE)-[0-9]*/
 	rm -rf $(PACKAGE)*.tar* *.deb *.dsc *.changes *.dsc *.buildinfo *.build
-
-.PHONY: dinstall
-dinstall: deb
-	dpkg -i $(DEBS)

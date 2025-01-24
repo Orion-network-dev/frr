@@ -1,7 +1,7 @@
 Source: frr
 Section: net
 Priority: optional
-Maintainer: Proxmox Support Team <support@proxmox.com>
+Maintainer: Orion Release <m@mpgn.dev>
 Build-Depends: bison,
                chrpath,
                debhelper (>= 9.20150101~),

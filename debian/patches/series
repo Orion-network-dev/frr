@@ -1,2 +1,1 @@
-pve/0001-enable-bgp-daemon.patch
-pve/0002-bgpd-add-an-option-for-RT-auto-derivation-to-force-A.patch
+orion/0001-enable-necessary-frr-daemons-for-Orion.patch
