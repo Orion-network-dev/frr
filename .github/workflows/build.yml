@@ -14,17 +14,17 @@ jobs:
       with:
         repository: Orion-network-dev/apt-registry
         path: output-apt-repo/
-    # - run: mkdir -p output-apt-repo/frr/
-    # - run: rm output-apt-repo/orion-firewall/*.deb
-    # - run: cp orion*.deb output-apt-repo/orion-firewall/
-    # - run: rm -rf output-apt-repo/.git
-    # - name: Pushes to the apt repository
-    #   uses: cpina/github-action-push-to-another-repository@main
-    #   env:
-    #     API_TOKEN_GITHUB: ${{ secrets.API_APT_GITHUB }}
-    #   with:
-    #     source-directory: 'output-apt-repo/'
-    #     destination-github-username: 'Orion-network-dev'
-    #     destination-repository-name: 'apt-registry'
-    #     user-email: 'orion+firewall@mpgn.dev'
-    #     target-branch: main
+    - run: mkdir -p output-apt-repo/frr/
+    - run: rm output-apt-repo/orion-firewall/*.deb
+    - run: cp frr*.deb output-apt-repo/orion-firewall/
+    - run: rm -rf output-apt-repo/.git
+    - name: Pushes to the apt repository
+      uses: cpina/github-action-push-to-another-repository@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_APT_GITHUB }}
+      with:
+        source-directory: 'output-apt-repo/'
+        destination-github-username: 'Orion-network-dev'
+        destination-repository-name: 'apt-registry'
+        user-email: 'orion+firewall@mpgn.dev'
+        target-branch: main
