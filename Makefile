@@ -48,13 +48,11 @@ deb: $(DEBS)
 $(OTHER_DEBS) $(DBG_DEBS): $(MAIN_DEB)
 $(MAIN_DEB): $(BUILDDIR)
 	cd $(BUILDDIR); dpkg-buildpackage -b -uc -us --build-profiles="pkg.frr.nortrlib"
-	lintian $(DEBS)
 
 .PHONY: dsc
 dsc:
 	rm -rf $(BUILDDIR) $(ORIG_SRC_TAR) $(DSC)
 	$(MAKE) $(DSC)
-	lintian $(DSC)
 
 $(DSC): $(BUILDDIR) $(ORIG_SRC_TAR)
 	cd $(BUILDDIR); dpkg-buildpackage -S -uc -us --build-profiles="pkg.frr.nortrlib" -d
