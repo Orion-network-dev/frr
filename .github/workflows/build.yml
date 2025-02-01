@@ -9,19 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     container:
      image: debian:bookworm
-     options: --user 1001
-
     steps:
-    - uses: actions/checkout@v3.1.0
+    - uses: actions/checkout@v4
     - name: Prepare build environment
       run: |
-        sudo apt-get update
-        sudo apt-get install curl lsb-release git -y
-        curl -s https://deb.frrouting.org/frr/keys.gpg | sudo tee /usr/share/keyrings/frrouting.gpg > /dev/null
+        apt-get update
+        apt-get install curl lsb-release git -y
+        curl -s https://deb.frrouting.org/frr/keys.gpg | tee /usr/share/keyrings/frrouting.gpg > /dev/null
         echo deb '[signed-by=/usr/share/keyrings/frrouting.gpg]' https://deb.frrouting.org/frr $(lsb_release -s -c) frr-stable \
            | tee -a /etc/apt/sources.list.d/frr.list
-        sudo apt-get update
-        sudo apt-get -y install libang2* \
+        apt-get update
+        apt-get -y install libang2* \
           sbuild lintian build-essential bison chrpath debhelper debhelper-compat flex gawk \
           install-info libc-ares-dev libcap-dev libelf-dev libjson-c-dev libpam0g-dev libpam-dev \
           libpython3-dev libreadline-dev libsnmp-dev libsystemd-dev libyang2-dev pkg-config python3 \
