@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
      image: debian:bookworm
+     options: --user root
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v2
     - name: Prepare build environment
       run: |
         apt-get update
