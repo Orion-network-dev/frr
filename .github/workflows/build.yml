@@ -24,11 +24,8 @@ jobs:
           python3-dev python3-pytest python3-sphinx libprotobuf-c-dev protobuf-c-compiler \
           texinfo
         apt-get download libyang2*
-    - name: Re-build changelog
-      run: ./changelog_sync.sh
-
     - name: "Building frr"
-      run: sudo make
+      run: make
 
     - uses: actions/checkout@v4
       with:
