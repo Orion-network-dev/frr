@@ -36,7 +36,7 @@ jobs:
         touch output-apt-repo/frr/dummy.deb
     - run: rm output-apt-repo/frr/*.deb
     - run: cp *.deb output-apt-repo/frr/
-
+    - run: rm -rf output-apt-repo/.git
     - name: Pushes to the apt repository
       uses: cpina/github-action-push-to-another-repository@main
       env:
@@ -45,5 +45,5 @@ jobs:
         source-directory: 'output-apt-repo/'
         destination-github-username: 'Orion-network-dev'
         destination-repository-name: 'apt-registry'
-        user-email: 'orion+firewall@mpgn.dev'
+        user-email: 'orion+frr@mpgn.dev'
         target-branch: main
