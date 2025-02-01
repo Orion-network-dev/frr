@@ -16,6 +16,7 @@ jobs:
       run: |
         apt-get update
         apt-get install curl lsb-release git -y
+        git config --global --add safe.directory /__w/
         curl -s https://deb.frrouting.org/frr/keys.gpg | tee /usr/share/keyrings/frrouting.gpg > /dev/null
         echo deb '[signed-by=/usr/share/keyrings/frrouting.gpg]' https://deb.frrouting.org/frr $(lsb_release -s -c) frr-10.0 \
            | tee -a /etc/apt/sources.list.d/frr.list
