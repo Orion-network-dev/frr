@@ -15,7 +15,7 @@ jobs:
         echo deb '[signed-by=/usr/share/keyrings/frrouting.gpg]' https://deb.frrouting.org/frr $(lsb_release -s -c) frr-10.0 \
            | sudo tee -a /etc/apt/sources.list.d/frr.list
         sudo apt-get update
-        sudo apt-get install libang2*
+        sudo apt-get install libang2* \
           sbuild lintian build-essential bison chrpath debhelper debhelper-compat flex gawk \
           install-info libc-ares-dev libcap-dev libelf-dev libjson-c-dev libpam0g-dev libpam-dev \
           libpython3-dev libreadline-dev libsnmp-dev libsystemd-dev libyang2-dev pkg-config python3 \
