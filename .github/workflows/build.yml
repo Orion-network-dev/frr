@@ -31,7 +31,9 @@ jobs:
       with:
         repository: Orion-network-dev/apt-registry
         path: output-apt-repo/
-    - run: mkdir -p output-apt-repo/frr/
+    - run: |
+        mkdir -p output-apt-repo/frr/
+        touch output-apt-repo/frr/dummy.deb
     - run: rm output-apt-repo/frr/*.deb
     - run: cp *.deb output-apt-repo/frr/
 
