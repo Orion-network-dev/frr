@@ -12,6 +12,8 @@ jobs:
      options: --user root
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: 'true'
     - name: Prepare build environment
       run: |
         apt-get update
