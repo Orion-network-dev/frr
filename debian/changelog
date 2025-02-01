@@ -1,20 +1,44 @@
-frr (8.5.2-0+orion) unstable; urgency=medium
+frr (10.0.3+orion) unstable; urgency=medium
 
   * Enable necessary FRR daemons for Orion (bgp and pim)
 
- -- Matthieu Pignolet <m@mpgn.dev>  Fri, 24 Jan 2025 13:47:59 +0400
+ -- Matthieu Pignolet <m@mpgn.dev>  Sat, 01 Feb 2025 12:21:40 +0000
 
-frr (8.5.2-0) unstable; urgency=medium
+frr (10.0.3-0) unstable; urgency=medium
 
-  * New upstream release FRR 8.5.2
+  * New upstream release FRR 10.0.3
 
- -- Jafar Al-Gharaibeh <jafar@atcorp.com>  Thu, 15 Jun 2023 02:00:00 -0600
+ -- Donatas Abraitis <donatas@opensourcerouting.org>  Mon, 23 Dec 2024 22:35:00 +0300
 
-frr (8.5.1-0) unstable; urgency=medium
+frr (10.0.2-0) unstable; urgency=medium
 
-  * New upstream release FRR 8.5.1
+  * New upstream release FRR 10.0.2
 
- -- Jafar Al-Gharaibeh <jafar@atcorp.com>  Thu, 20 Mar 2023 02:00:00 -0600
+ -- Donatas Abraitis <donatas@opensourcerouting.org>  Wed, 11 Sep 2024 10:40:00 +0300
+
+frr (10.0.1-0) unstable; urgency=medium
+
+  * New upstream release FRR 10.0.1
+
+ -- Jafar Al-Gharaibeh <jafar@atcorp.com>  Thu, 06 Jun 2024 02:00:00 -0600
+
+frr (10.0-0) unstable; urgency=medium
+
+  * New upstream release FRR 10.0
+
+ -- Jafar Al-Gharaibeh <jafar@atcorp.com>  Mon, 08 Apr 2024 02:00:00 -0600
+
+frr (9.1-0) unstable; urgency=medium
+
+  * New upstream release FRR 9.1
+
+ -- Donatas Abraitis <donatas@opensourcerouting.org>  Thu, 09 Oct 2023 12:00:00 -0600
+
+frr (9.0-0) unstable; urgency=medium
+
+  * New upstream release FRR 9.0
+
+ -- Jafar Al-Gharaibeh <jafar@atcorp.com>  Wed, 26 Jul 2023 02:00:00 -0600
 
 frr (8.5-0) unstable; urgency=medium
 
