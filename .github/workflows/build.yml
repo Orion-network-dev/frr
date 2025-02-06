@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
      image: debian:bookworm
-     options: --user root
+     options: --user 1001
     steps:
     - run: apt-get update && apt-get install git -y
     - uses: actions/checkout@v4
