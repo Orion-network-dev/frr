@@ -1,4 +1,4 @@
 *.deb
 *.changes
 *.buildinfo
-frr/
+frr*/
