@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
      image: debian:bookworm
-     options: --user root
+     options: --user root --privileged
     steps:
     - run: apt-get update && apt-get install git -y
     - run: git clone https://github.com/Orion-network-dev/frr.git
@@ -29,17 +29,17 @@ jobs:
           texinfo
         apt-get download libyang2*
     - name: "Building frr"
-      run: make
+      run: cd frr; make
     - uses: actions/checkout@v4
       with:
         repository: Orion-network-dev/apt-registry
         path: output-apt-repo/
-    - run: rm -rf output-apt-repo/.git
     - run: |
+        rm -rf output-apt-repo/.git
         mkdir -p output-apt-repo/frr/
         touch output-apt-repo/frr/dummy.deb
-    - run: rm output-apt-repo/frr/*.deb
-    - run: cp *.deb output-apt-repo/frr/
+        rm output-apt-repo/frr/*.deb
+        cp *.deb output-apt-repo/frr/
     - name: Pushes to the apt repository
       uses: cpina/github-action-push-to-another-repository@main
       env:
