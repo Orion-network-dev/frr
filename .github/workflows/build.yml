@@ -27,9 +27,10 @@ jobs:
           libpython3-dev libreadline-dev libsnmp-dev libsystemd-dev libyang2-dev pkg-config python3 \
           python3-dev python3-pytest python3-sphinx libprotobuf-c-dev protobuf-c-compiler \
           texinfo
+        cd frr
         apt-get download libyang2*
     - name: "Building frr"
-      run: make
+      run: cd frr; make
     - uses: actions/checkout@v4
       with:
         repository: Orion-network-dev/apt-registry
@@ -39,7 +40,7 @@ jobs:
         mkdir -p output-apt-repo/frr/
         touch output-apt-repo/frr/dummy.deb
         rm output-apt-repo/frr/*.deb
-        cp *.deb output-apt-repo/frr/
+        cp frr/*.deb output-apt-repo/frr/
     - name: Pushes to the apt repository
       uses: cpina/github-action-push-to-another-repository@main
       env:
